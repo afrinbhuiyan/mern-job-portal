@@ -1,1 +1,20 @@
 @import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+.public-sans {
+  font-family: "Public Sans", sans-serif;
+  font-optical-sizing: auto;
+}
+
+.animated-gradient {
+  background: linear-gradient(90deg, yellow, green, black);
+  background-size: 300% 300%;
+  animation: gradient-move 15s linear infinite;
+}
+
+@keyframes gradient-move {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
