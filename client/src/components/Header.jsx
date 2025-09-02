@@ -112,7 +112,6 @@ const Header = () => {
       </div>
 
       {/* Search Bar Section */}
-      <SearchBar setMenuOpen={setMenuOpen} />
     </header>
   );
 };

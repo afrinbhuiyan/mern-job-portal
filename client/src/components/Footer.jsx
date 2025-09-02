@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import { FaFacebookF, FaInstagram, FaXTwitter } from "react-icons/fa6";
 import logo from "../assets/logo.png";
 import postImg from "../assets/postImg.jpg";
-import bg from "../assets/footer-blur-bg.png";
+// import bg from "../assets/footer-blur-bg.png";
 
 const Footer = () => {
   return (
