@@ -7,6 +7,7 @@ This project is built with **MongoDB, Express.js, React, and Node.js**.
 
 ## 🔗 Live Links
 - **Frontend:** https://mernjobportalclient.vercel.app/
+- **Backend:** https://mernjobportalserver-qxsnhu9kq-afrin1.vercel.app/  
   
 ---
 
@@ -131,4 +132,5 @@ Pull requests are welcome! For major changes, please open an issue first.
 
 ## 📜 License
 MIT License © 2025
+
 
