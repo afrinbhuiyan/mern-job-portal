@@ -4,17 +4,14 @@ import { TbCategory } from "react-icons/tb";
 import { Link, NavLink } from "react-router";
 import { motion } from "framer-motion";
 import logo from "../assets/logo.png";
-import SearchBar from "./SearchBar";
 import { AuthContext } from "../context/AuthContext";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { user, logout } = useContext(AuthContext); 
-
-  console.log(user)
+  const { user, logout } = useContext(AuthContext);
 
   return (
-    <header className="bg-black bg-[url(/src/assets/header-blur-bg.png)] bg-no-repeat bg-left-top relative overflow-hidden z-50">
+    <header className="bg-black bg-[url(/src/assets/header-blur-bg.png)] bg-no-repeat bg-left-top sticky top-0 z-50 w-full">
       <div className="max-w-7xl mx-auto">
         {/* Top Nav */}
         <div className="border-b border-[#CCCCCC1A] px-4 md:px-6">
@@ -44,13 +41,12 @@ const Header = () => {
                 <FiChevronDown />
               </NavLink>
               <Link
-                to="/seller"
+                to={user ? "/seller" : "/login"}
                 className="text-green-400 hover:text-green-300 text-sm font-semibold tracking-wide transition-colors duration-200"
               >
                 BECOME A SELLER
               </Link>
 
-              {/* 🔹 Authenticated / Guest Links */}
               {user ? (
                 <>
                   <span className="text-white text-sm">Hi, {user.name}</span>
@@ -95,34 +91,35 @@ const Header = () => {
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
             className="md:hidden bg-black px-4 py-4 border-b border-[#CCCCCC1A]"
           >
             <nav className="flex flex-col space-y-3">
               <Link
                 to="/freelancer"
                 onClick={() => setMenuOpen(false)}
-                className="text-white"
+                className="text-white py-2"
               >
                 Freelancer
               </Link>
               <Link
-                to="/seller"
+                to={user ? "/seller" : "/login"}
                 onClick={() => setMenuOpen(false)}
-                className="text-green-400"
+                className="text-green-400 py-2"
               >
                 BECOME A SELLER
               </Link>
 
-              {/* 🔹 Authenticated / Guest Mobile Links */}
               {user ? (
                 <>
-                  <span className="text-white text-sm">Hi, {user.name}</span>
+                  <span className="text-white text-sm py-2">Hi, {user.name}</span>
                   <button
                     onClick={() => {
                       logout();
                       setMenuOpen(false);
                     }}
-                    className="text-red-400 text-left"
+                    className="text-red-400 text-left py-2"
                   >
                     Logout
                   </button>
@@ -132,14 +129,14 @@ const Header = () => {
                   <Link
                     to="/login"
                     onClick={() => setMenuOpen(false)}
-                    className="text-white"
+                    className="text-white py-2"
                   >
                     LOGIN
                   </Link>
                   <Link
                     to="/register"
                     onClick={() => setMenuOpen(false)}
-                    className="bg-[#05AF2B] text-white px-4 py-2 rounded-full"
+                    className="bg-[#05AF2B] text-white px-4 py-2 rounded-full my-2 inline-block text-center"
                   >
                     Registration
                   </Link>

@@ -4,6 +4,8 @@ import Home from "../pages/Home";
 import NotFound from "../pages/NotFound";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
+import Seller from "../pages/Seller";
+import AllJobs from "../pages/AllJobs";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +23,14 @@ export const router = createBrowserRouter([
       {
         path: "login",
         Component: Login
+      },
+      {
+        path: "seller",
+        Component: Seller
+      },
+      {
+        path: "/all-jobs",
+        Component: AllJobs
       }
     ],
   },

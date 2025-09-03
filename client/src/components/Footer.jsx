@@ -3,7 +3,6 @@ import { Link } from "react-router";
 import { FaFacebookF, FaInstagram, FaXTwitter } from "react-icons/fa6";
 import logo from "../assets/logo.png";
 import postImg from "../assets/postImg.jpg";
-// import bg from "../assets/footer-blur-bg.png";
 
 const Footer = () => {
   return (
@@ -14,9 +13,9 @@ const Footer = () => {
           <h2 className="text-2xl md:text-3xl font-bold leading-snug text-center md:text-left lg:w-1/2">
             Reach Your Requirement Goals Right on Schedule
           </h2>
-          <div className="flex justify-end">
-            <div className="">
-              <p className="text-[#ffffff96] text-sm md:text-base max-w-md md:text-left">
+          <div className="flex justify-center md:justify-end lg:items-end">
+            <div className="text-center md:text-left">
+              <p className="text-[#ffffff96] text-sm md:text-base max-w-md">
                 Sign up, complete your profile, and start browsing projects.
                 Submit proposals and communicate with clients to get hired.
               </p>
@@ -29,14 +28,14 @@ const Footer = () => {
       </div>
 
       {/* Middle Links */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col lg:flex-row">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col lg:flex-row flex-wrap lg:flex-nowrap">
         {/* Logo + Social */}
-        <div className="flex flex-col items-start space-y-4 mt-10">
+        <div className="flex flex-col items-start space-y-4 mt-10 lg:w-1/4">
           <img src={logo} alt="Logo" className="w-48" />
         </div>
 
         {/* About */}
-        <div className="py-10 px-30">
+        <div className="py-6 px-0 sm:px-6 lg:px-8 lg:w-1/4">
           <h3 className="font-semibold mb-4">About</h3>
           <ul className="space-y-2 text-sm text-gray-300">
             <li>
@@ -58,7 +57,7 @@ const Footer = () => {
         </div>
 
         {/* Categories */}
-        <div className="border-b border-l border-green-900/40 py-10 px-32">
+        <div className="py-6 px-0 sm:px-6 lg:px-8 border-b lg:border-b-0 lg:border-l border-green-900/40 lg:w-1/4">
           <h3 className="font-semibold mb-4">Categories</h3>
           <ul className="space-y-2 text-sm text-gray-300">
             <li>Design & Creative</li>
@@ -69,7 +68,7 @@ const Footer = () => {
         </div>
 
         {/* Support */}
-        <div className="border-b border-l border-green-900/40 py-10 px-36">
+        <div className="py-6 px-0 sm:px-6 lg:px-8 border-b lg:border-b-0 lg:border-l border-green-900/40 lg:w-1/4">
           <h3 className="font-semibold mb-4">Support</h3>
           <ul className="space-y-2 text-sm text-gray-300">
             <li>
@@ -95,10 +94,11 @@ const Footer = () => {
           </ul>
         </div>
       </div>
+
       {/* Popular Post */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 flex bg-[url(/src/assets/footer-blur-bg.png)] bg-no-repeat w-6xl ">
-        <div className="flex-1">
-          <div className="flex space-x-3 mt-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 flex flex-col lg:flex-row bg-[url(/src/assets/footer-blur-bg.png)] bg-no-repeat bg-contain">
+        <div className="flex-1 mb-6 lg:mb-0">
+          <div className="flex space-x-3">
             <a
               href="#"
               className="w-9 h-9 flex items-center justify-center rounded-full bg-green-600 hover:bg-green-700 transition"

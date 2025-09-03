@@ -15,7 +15,7 @@ async function connectDB() {
     await client.connect();
     console.log("✅ MongoDB connected!");
 
-    db = client.db("jobportal"); // database name
+    db = client.db("jobportal"); 
     return db;
   } catch (err) {
     console.error("MongoDB connection failed:", err);

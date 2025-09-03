@@ -10,8 +10,6 @@ exports.registerUser = async (req, res) => {
     const users = User(db);
 
     let { name, email, password } = req.body;
-
-    // Lowercase email
     email = email.trim().toLowerCase();
 
     const existing = await users.findOne({ email });
@@ -19,25 +17,13 @@ exports.registerUser = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const result = await users.insertOne({ name, email, password: hashedPassword });
-
     const newUser = await users.findOne({ _id: result.insertedId });
 
-    // Generate token
-    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
-
-    console.log("Registered user:", {
-      id: newUser._id,
-      name: newUser.name,
-      email: newUser.email,
-    });
+    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
     res.json({
       token,
-      user: {
-        id: newUser._id,
-        name: newUser.name,
-        email: newUser.email,
-      },
+      user: { id: newUser._id, name: newUser.name, email: newUser.email },
     });
   } catch (err) {
     console.error(err);
@@ -58,10 +44,9 @@ exports.loginUser = async (req, res) => {
     if (!user) return res.status(400).json({ msg: "Invalid credentials" });
 
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log("Password match:", isMatch);
     if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
     res.json({
       token,
