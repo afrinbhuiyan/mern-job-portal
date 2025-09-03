@@ -5,6 +5,11 @@ This project is built with **MongoDB, Express.js, React, and Node.js**.
 
 ---
 
+## 🔗 Live Links
+- **Frontend:** https://mernjobportalclient.vercel.app/
+  
+---
+
 ## ✨ Features
 - 🔐 User authentication with **JWT**
 - 👤 Users can **create, update, delete, and view** their own jobs
@@ -126,3 +131,4 @@ Pull requests are welcome! For major changes, please open an issue first.
 
 ## 📜 License
 MIT License © 2025
+
