@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { FiChevronDown, FiMenu, FiX } from "react-icons/fi";
 import { TbCategory } from "react-icons/tb";
 import { Link, NavLink } from "react-router";
 import { motion } from "framer-motion";
 import logo from "../assets/logo.png";
 import SearchBar from "./SearchBar";
+import { AuthContext } from "../context/AuthContext";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { user, logout } = useContext(AuthContext); 
+
+  console.log(user)
 
   return (
     <header className="bg-black bg-[url(/src/assets/header-blur-bg.png)] bg-no-repeat bg-left-top relative overflow-hidden z-50">
@@ -45,18 +49,34 @@ const Header = () => {
               >
                 BECOME A SELLER
               </Link>
-              <Link
-                to="/login"
-                className="text-white hover:text-green-300 text-sm font-medium transition-colors duration-200"
-              >
-                LOGIN
-              </Link>
-              <Link
-                to="/register"
-                className="bg-[#05AF2B] hover:bg-green-600 text-white px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 shadow-lg"
-              >
-                Registration
-              </Link>
+
+              {/* 🔹 Authenticated / Guest Links */}
+              {user ? (
+                <>
+                  <span className="text-white text-sm">Hi, {user.name}</span>
+                  <button
+                    onClick={logout}
+                    className="text-white hover:text-red-400 text-sm font-medium transition-colors duration-200"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    className="text-white hover:text-green-300 text-sm font-medium transition-colors duration-200"
+                  >
+                    LOGIN
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="bg-[#05AF2B] hover:bg-green-600 text-white px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 shadow-lg"
+                  >
+                    Registration
+                  </Link>
+                </>
+              )}
             </nav>
 
             {/* Mobile Hamburger */}
@@ -92,26 +112,43 @@ const Header = () => {
               >
                 BECOME A SELLER
               </Link>
-              <Link
-                to="/login"
-                onClick={() => setMenuOpen(false)}
-                className="text-white"
-              >
-                LOGIN
-              </Link>
-              <Link
-                to="/register"
-                onClick={() => setMenuOpen(false)}
-                className="bg-[#05AF2B] text-white px-4 py-2 rounded-full"
-              >
-                Registration
-              </Link>
+
+              {/* 🔹 Authenticated / Guest Mobile Links */}
+              {user ? (
+                <>
+                  <span className="text-white text-sm">Hi, {user.name}</span>
+                  <button
+                    onClick={() => {
+                      logout();
+                      setMenuOpen(false);
+                    }}
+                    className="text-red-400 text-left"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    onClick={() => setMenuOpen(false)}
+                    className="text-white"
+                  >
+                    LOGIN
+                  </Link>
+                  <Link
+                    to="/register"
+                    onClick={() => setMenuOpen(false)}
+                    className="bg-[#05AF2B] text-white px-4 py-2 rounded-full"
+                  >
+                    Registration
+                  </Link>
+                </>
+              )}
             </nav>
           </motion.div>
         )}
       </div>
-
-      {/* Search Bar Section */}
     </header>
   );
 };

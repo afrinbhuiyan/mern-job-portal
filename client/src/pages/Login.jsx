@@ -1,71 +1,102 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { FaFacebookF, FaApple, FaXTwitter } from "react-icons/fa6";
 import signupImg from "../assets/authImg.png";
 import { Link } from "react-router";
+import { AuthContext } from "../context/AuthContext";
+import Swal from "sweetalert2";
 
 const Login = () => {
+  const { login } = useContext(AuthContext);
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    remember: false,
+  });
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === "checkbox" ? checked : value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await login({
+        email: formData.email,
+        password: formData.password,
+        remember: formData.remember,
+      });
+      Swal.fire("Success!", "Logged in successfully!", "success");
+    } catch (err) {
+      Swal.fire("Error", err.response?.data?.msg || "Invalid credentials", "error");
+    }
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-black/50">
       <div className="bg-[#0B1A0B] rounded-2xl shadow-2xl overflow-hidden flex max-w-5xl w-full">
         {/* Left - Form */}
         <div className="w-full md:w-1/2 p-10">
-          <h2 className="text-2xl font-bold mb-2 text-white">
-            Login your account
-          </h2>
+          <h2 className="text-2xl font-bold mb-2 text-white">Login your account</h2>
           <p className="text-gray-400 mb-6 text-sm">
-            Don’t have an account?
-            <span className="text-green-500 cursor-pointer">Sign Up</span>
+            Don’t have an account?{" "}
+            <Link to="/register" className="text-green-500 cursor-pointer">Sign Up</Link>
           </p>
 
-          <form className="space-y-4">
-            {/* Email */}
-            <div className="relative">
-              <input
-                type="email"
-                placeholder="Email Address"
-                className="w-full px-4 py-3 rounded-full bg-transparent border border-green-700 focus:border-green-500 outline-none text-sm text-white"
-              />
-            </div>
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full px-4 py-3 rounded-full bg-transparent border border-green-700 focus:border-green-500 outline-none text-sm text-white"
+              required
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              className="w-full px-4 py-3 rounded-full bg-transparent border border-green-700 focus:border-green-500 outline-none text-sm text-white"
+              required
+            />
 
-            {/* Password */}
-            <div className="relative">
-              <input
-                type="password"
-                placeholder="Password"
-                className="w-full px-4 py-3 rounded-full bg-transparent border border-green-700 focus:border-green-500 outline-none text-sm text-white"
-              />
-            </div>
             <div className="flex justify-between">
               <div className="flex items-center">
                 <input
                   type="checkbox"
                   name="remember"
                   id="remember"
-                  aria-label="Remember me"
+                  checked={formData.remember}
+                  onChange={handleChange}
                   className="mr-2 rounded-sm accent-green-600 focus:ring-1 focus:ring-green-600"
                 />
-                <label htmlFor="remember" className="text-sm text-[#ffffffc0]">
-                  Remember me
-                </label>
+                <label htmlFor="remember" className="text-sm text-[#ffffffc0]">Remember me</label>
               </div>
-              <a className="text-sm text-[#ffffffc0]" href="/">
-                Forgot your password?
-              </a>
+              <Link to="/forgot-password" className="text-sm text-[#ffffffc0]">Forgot your password?</Link>
             </div>
-            {/* Create Account Button */}
-            <button className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-full transition">
+
+            <button
+              type="submit"
+              className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-full transition"
+            >
               Login Now
             </button>
           </form>
 
-          {/* OR Divider */}
           <div className="flex items-center my-6">
             <hr className="flex-1 border-gray-700" />
             <span className="mx-4 text-gray-400 text-sm">or</span>
             <hr className="flex-1 border-gray-700" />
           </div>
 
-          {/* Social Buttons */}
           <div className="flex justify-center space-x-4">
             <button className="w-12 h-12 rounded-full flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-white">
               <FaFacebookF />
@@ -78,7 +109,6 @@ const Login = () => {
             </button>
           </div>
 
-          {/* Terms */}
           <p className="text-xs text-gray-500 mt-6 text-center">
             By joining, you agree to the{" "}
             <span className="text-green-500">Terms of Service</span> and{" "}
@@ -88,13 +118,9 @@ const Login = () => {
 
         {/* Right - Image */}
         <div className="hidden md:block w-1/2 relative m-6">
-          <img
-            src={signupImg}
-            alt="Signup"
-            className="w-full h-full object-cover"
-          />
+          <img src={signupImg} alt="Signup" className="w-full h-full object-cover" />
           <Link
-            to={"/"}
+            to="/"
             className="absolute -top-1 -right-1 w-8 h-8 rounded-full bg-black/60 flex items-center justify-center text-green-500 font-bold border border-gray-600"
           >
             ✕
