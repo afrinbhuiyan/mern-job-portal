@@ -117,12 +117,6 @@ npm run dev
 - `GET /api/jobs` → Get logged-in user's jobs  
 - `PUT /api/jobs/:id` → Update job  
 - `DELETE /api/jobs/:id` → Delete job  
-
----
-
-## 📸 Screenshots
-(Add screenshots of UI later)
-
 ---
 
 ## 🤝 Contributing
@@ -132,5 +126,6 @@ Pull requests are welcome! For major changes, please open an issue first.
 
 ## 📜 License
 MIT License © 2025
+
 
 
